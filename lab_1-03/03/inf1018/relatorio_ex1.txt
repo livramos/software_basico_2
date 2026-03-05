@@ -1,0 +1,85 @@
+Relatorio laboratório aquecimento 
+
+Nome:  Lívia Ramos Vallim
+Matrícula: 2320338
+
+Exercicio 4
+LETRA A)
+ ao compilar o codigo 
+""""
+#include <stdio.h>
+#include <stdlib.h>
+float foo (float pf) {
+  return pf+1;
+}
+
+int main (int argc, char **argv) {
+  float f;
+  if (argc!=2) {
+    printf ("uso do programa: %s <valor float>\n", argv[0]);
+    exit(0);
+  }
+  f = atof(argv[1]);
+  printf ("foo(%.2f): %.2f\n", f, foo(f));
+  return 0;
+}
+""""
+
+percebi que foi gerado o codigo objeto chamado ex1, quando utilizei o comando 
+gcc -Wall -o ex1 ex1.c no terminal não houve nenhum erro de compilação ou warning.
+E ao executar o codigo com ./ex1 4.0, o resultado obtido foi 5.00, entretanto ao executa-lo sem nenhum valor float ao lado
+ele exibe a segunte menssagem:
+  uso do programa: ./ex1 <valor float>
+e ao tentar executar somente com ex1 exibe:
+ bash: ex1: command not found
+
+demonstrando que para esse código o valor float é imprencindivel para o funcionamento deste algoritimo
+e o ./ é nessessário para a execução do codigo, sendo parte do comando 
+
+LETRA B)
+    Após separar os dois trechos de código e testar tanto a compilação quando a execuçãO,
+    pude perceber que para que a compilação seja executada com exito é preciso executar todos os arquivos que contém o codigo, funções e etc,
+    juntos para que assim seja possivel realizar a compilação completa
+
+LETRA C)
+  Agora testando sem o cabeçalho, na compilação foi um erro:
+
+  ex3.c:13:35: warning: implicit declaration of function ‘foo’ [-Wimplicit-function-declaration]
+   13 |   printf ("foo(%.2f): %.2f\n", f, foo(f));
+      |                                   ^~~
+ex3.c:13:26: warning: format ‘%f’ expects argument of type ‘double’, but argument 3 has type ‘int’ [-Wformat=]
+   13 |   printf ("foo(%.2f): %.2f\n", f, foo(f));
+      |                       ~~~^        ~~~~~~
+      |                          |        |
+      |                          double   int
+      |                       %.2d
+/usr/bin/ld: /tmp/cc14Il3L.o: in function `main':
+
+deixando claro que o programa não irá reconhecer a função mesmo ambos arquivos terem sido
+compilados juntos, evidenciando a necessidade da declaração do cabçalho da função
+
+
+EXERCICIO 5) 
+
+Ao olhar a função Dump mostrada abaixo é possivel ver que a função vai mostrar 
+o valor do hexadecimal onde se encontra na memória do ponteiro referido como parametro
+
+void dump (void *p, int n) {
+  unsigned char *p1 = p;
+  while (n--) {
+    printf("%d ", *p1);
+    p1++;
+  }
+} 
+
+ao observar o código completo é possivel perceber que as entradas são sempre o endereço de 
+memória onde os int e char estão localizado. 
+Uma vez que compilado é possível perceber que   
+
+valor de c1: 1 -> na memória: 1 
+valor de c2: 49 -> na memória: 49 
+valor de i: 1 -> na memória: 1 0 0 0 
+valor de v: 1 -> na memória: 49 0 
+
+posso concluir sobre o armazenamento das variaveis c e i e do vetor v que ele está armazenado na memória 
+representado pelos hexadecimais citados no seu output
