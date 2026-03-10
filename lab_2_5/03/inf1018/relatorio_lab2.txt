@@ -1,19 +1,20 @@
-Relatório Lab2 - Representação de Dados: inteiros sem sinal
-
+Relatório Lab 2 - Representação de Dados: inteiros sem sinal
+Nome: Lívia Ramos Vallim 
+Matricula: 2320338
 
 1) PRIMEIRA PARTE DO LABORATÓRIO 
 
-A)Crie um arquivo C contendo as funções dump e main, compile-o e execute o programa.
- Explique o resultado desse programa (qual o tamanho, em bytes, de um inteiro?
- como esses bytes estão ordenados na memória?). Experimente, se necessário, outros valores para i.
+A) Crie um arquivo C contendo as funções dump e main, compile-o e execute o programa.
+ Explique o resultado desse programa (qual o tamanho, em bytes, de um inteiro)?
+ Como esses bytes estão ordenados na memória? Experimente, se necessário, outros valores para i.
 
- o Resultado obtido ao compilar o arquivo c foi: 
+ O resultado obtido ao compilar o arquivo c foi: 
  0x7ffe69542aa4 - 10
 0x7ffe69542aa5 - 27
 0x7ffe69542aa6 - 00
 0x7ffe69542aa7 - 00
-nele é possível observar que o valor que o int i ocupa na memoria é de 4 bytes, assim como qualquer outro inteiro 
-estão ordenados na memória de forma "Little endian", ou seja do algarismo menos significativo para o mais significativo, 
+Nele é possível observar que o valor que o int i ocupa na memória é de 4 bytes, assim como qualquer outro inteiro 
+Estão ordenados na memória de forma "Little endian", ou seja do algarismo menos significativo para o mais significativo, 
 
 
 B) Aplique a mesma técnica para ver como um long é armazenado.
@@ -37,10 +38,10 @@ O resultado ao compilar com o short int foi:
 0x7fff009ec4d7 - 27
 É possível observar que o assim como o long é o dobro do valor inicial, o short é a metade do mesmo, possuindo apenas 2 bytes ordenados de maneira little endian 
 
-D) Aplique a mesma técnica para ver como um char é armazenado. Lembre-se que uma variável do tipo char armazena um valor inteiro. 
+D) Aplique a mesma técnica para ver como um char é armazenado. Lembre-se de que uma variável do tipo char armazena um valor inteiro. 
 Experimente atribuir a essa variável tanto um caractere como o valor do código ASCII correspondente (por exemplo, 'a' e 97).
 
-trecho de código alterado com os testes para char:
+Trecho de código alterado com os testes para char:
 int main (void) {
   char i = 'a';
   dump(&i, sizeof(i));
@@ -49,29 +50,29 @@ int main (void) {
   return 0;
 }
 
-como o char ocupa apenas um  byte na memória podemos observar que o char i será armazenado da seguinte maneira:
+Como o char ocupa apenas um  byte na memória, podemos observar que o char i será armazenado da seguinte maneira:
 0x7ffeb66325b6 - 61
-enquanto o char b (caracter "\" na tabela ASCII) é armazenado desta forma:
+Enquanto o char b (caractere "\" na tabela ASCII) é armazenado desta forma:
 0x7ffeb66325b7 - 5c
 
 E) A mesma técnica pode ser usada para vermos como uma string é armazenada:
 
-Ao compilar o dump com o valor da string, obtive seguinte resultado:
+Ao compilar o dump com o valor da string, obtive o seguinte resultado:
 0x7ffc7fb33fd3 - 37
 0x7ffc7fb33fd4 - 35
 0x7ffc7fb33fd5 - 30
 0x7ffc7fb33fd6 - 39
 0x7ffc7fb33fd7 - 00
 
-a string ocupa 5 bytes, 4 para cada char presente em sua composição e 1 para \0 , algarismo terminador nulo, ao tentar os valores 'A', ' ', '\n', e '$' descobri que 
-seus valores decimais na table ASCII são iguais a: 
+A string ocupa 5 bytes, 4 para cada char presente em sua composição e 1 para \0 , algarismo terminador nulo, ao tentar os valores 'A', ' ', '\n', e '$' descobri que 
+Seus valores decimais na tabela ASCII são iguais a: 
 
 'A' - 65 
 ' ' - 32 
 '\n' - 10
 '$'- 36
 
-sendo assim sua representação na memória será: 
+Sendo assim, sua representação na memória será: 
 0x7ffec17aa0a3 - 41 ---> representando o A 
 0x7ffec17aa0a4 - 20 ---> representando o ' '
 0x7ffec17aa0a5 - 0a ---> representando o \n
@@ -84,9 +85,9 @@ sendo assim sua representação na memória será:
 A) Procure entender como funciona a função string2num. O que está acontecendo? O que será o valor de (*s - '0') a cada iteração? E o valor de a?
 
 Na função string2num é realizada uma conversão byte a byte do número, pois o valor de (*s - '0') vai ser o algarismo na ordem que se encontra o text, ou seja
-no exemplo dado, na primeira iteração era o 1, na segunda o 2 e etc, ao diminuir o valor pelo numero 0, transformando seu caractere em numero é possivel realizar a conversão,
-já o valor de a, auxilia na montagm das casas decimais, uma vez que multiplicado por 10 e somado a (*s - '0'), a cada iteração seu valor cresce e uma casa decimal é acrescentada.
-Logo o valor resultante do teste compilado se torna: 
+No exemplo dado, na primeira iteração era o 1, na segunda o 2 e etc, ao diminuir o valor pelo número 0, transformando seu caráter em número é possível realizar a conversão,
+já o valor de a, auxilia na montagem das casas decimais, uma vez que multiplicado por 10 e somado a (*s - '0'), a cada iteração seu valor cresce e uma casa decimal é acrescentada.
+Logo, o valor resultante do teste compilado se torna: 
 => 123
 ==> 124
 ==> 124
@@ -107,7 +108,7 @@ int string2num (char *s, int base) {
   return a;
 }
 
-com os testes sugeridos, o resultado ocorreu da seguinte forma:
+Com os testes sugeridos, o resultado ocorreu da seguinte forma:
 511
 777
 
@@ -136,11 +137,12 @@ int string2num(char *s, int base) {
     return a;
 }
 
-com isso os testes sugeridos sairam com o seguinte output:
+Com isso os testes sugeridos saíram com o seguinte output:
 
 26
 41115
 1633295
 
-tendo isso dito, a maior base possível é 36, uma vez que temos 10 algaritimos numéricos (de 0 a 9) 
-e 26 algarismos alfabeticos (de a até z)
+Tendo isso dito, a maior base possível é 36, uma vez que temos 10 algarismos numéricos (de 0 a 9) 
+e 26 algarismos alfabéticos (de a até z)
+
