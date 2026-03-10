@@ -115,3 +115,32 @@ com os testes sugeridos, o resultado ocorreu da seguinte forma:
 C)Modifique novamente a função string2num para aceitar bases maiores que 10. Nesse caso, precisamos de "dígitos" para os valores a partir de 10. 
  Use as letras a-z para isso, com a representando o "dígito" 10 e assim por diante, até z representando o "dígito" 35.
 (Qual a maior base que podemos usar com esse esquema?)
+
+
+A função modificada ficou da seguinte forma: 
+
+int string2num(char *s, int base) {
+    int a = 0;
+    int dig;
+
+    for (; *s != '\0'; s++) {
+        if (isdigit(*s)) {
+            dig = *s - '0';
+        } else {
+            dig = tolower(*s) - 'a' + 10;
+        }
+
+        a = a * base + dig;
+    }
+
+    return a;
+}
+
+com isso os testes sugeridos sairam com o seguinte output:
+
+26
+41115
+1633295
+
+tendo isso dito, a maior base possível é 36, uma vez que temos 10 algaritimos numéricos (de 0 a 9) 
+e 26 algarismos alfabeticos (de a até z)
