@@ -1,108 +1,107 @@
 RELATÓRIO: Operações bit a bit
 
-Matricula:2320338
+Matrícula:2320338
 Nome:Lívia Ramos Vallim 
 
 1) 
 Função main com as alterações correspondentes ao pedido no enunciado 
-
+""""
 #include <stdio.h>
 int main(void) {
-    unsigned int x = 0x87654321;
-      unsigned int y, z;
+  unsigned int x = 0x87654321;
+  unsigned int y, z;
 
-        /* o byte menos significativo de x e os outros bits em 0 */
-          y = x & 0x000000FF;
+  /* o byte menos significativo de x e os outros bits em 0 */
+  y = x & 0x000000FF;
 
-            /* o byte mais significativo com todos os bits em '1' 
-                 e os outros bytes com o mesmo valor dos bytes de x */
-                   z = 0xFF000000|x;
+  /* o byte mais significativo com todos os bits em '1' 
+     e os outros bytes com o mesmo valor dos bytes de x */
+  z = 0xFF000000|x;
 
-                     printf("%08x %08x\n", y, z);
+  printf("%08x %08x\n", y, z);
 }
-
-é possível analisar que como y deve representar o valor com o byte menos significativo igual ao byte de x
-e todos os outros igual a 0, ao realizar a operação "&" na comparação com o valor 0x000000FF, todos os valores estarão 
-automaticamente 'desligados', assim comprindo com o requisito.
+""""
+É possível analisar que como y deve representar o valor com o byte menos significativo igual ao byte de x
+E todos os outros igual a 0, ao realizar a operação "&" na comparação com o valor 0x000000FF, todos os valores estarão 
+Automaticamente 'desligados', assim cumprindo com o requisito.
 Assim como z, que precisa ter os bytes mais significativos igual a 1, enquanto o resto é igual aos valores de x,
-usando o operador "|" como os primeiros 2 bits estão ligados em  0xFF000000 ele sempre terá o valor ff no inicio, deixando 
-os outros valores a dizer do valor de x (já que seus outros bites são 0)
+usando o operador "|" como os primeiros 2 bits estão ligados em  0xFF000000 ele sempre terá o valor ff no início, deixando 
+Os outros valores a dizer do valor de x (já que seus outros bits são 0)
 
-assim o valor do output é 
+Assim o valor do output é 
 00000021 ff654321
 
-Exercicio 2: 
+Exercício 2: 
 
-segue abaixo o codigo do 2 exercico:
+Segue abaixo o código do 2º exercício:
 """
 #include <stdio.h>
 
 int odd_ones(unsigned int x) {
 
-   int odd =0;
-     while (x) {
-          odd = odd ^ (x & 1);
-              x = x >> 1;
-     }
-         return odd;
+ int odd =0;
+  while (x) {
+    odd = odd ^ (x & 1);
+    x = x >> 1;
+  }
+    return odd;
 }
 int main() {
-    printf("%x tem numero %s de bits\n",0x01010101,odd_ones(0x01010101) ? "impar":"par");
-      printf("%x tem numero %s de bits\n",0x01030101,odd_ones(0x01030101) ? "impar":"par");
-        return 0;
+  printf("%x tem numero %s de bits\n",0x01010101,odd_ones(0x01010101) ? "impar":"par");
+  printf("%x tem numero %s de bits\n",0x01030101,odd_ones(0x01030101) ? "impar":"par");
+  return 0;
 }
 """""
 
 Para montar a função fiz um while para que enquanto x fosse diferente de 0
-ele comparar x com 1 para ter certeza que o valor do bit atual é 1,
-sendo assim, comparando o mesmo com o valor de odd, e posteriormente passando para o proximo bit de x
+Ele comparar x com 1 para ter certeza que o valor do bit atual é 1,
+sendo assim, comparando o mesmo com o valor de odd, e posteriormente passando para o próximo bit de x
 
-obtive algumas dificuldades com a lógica dessa função, pois não entendi de primeira
-como realizaria as operações mas felizmente consegui chegar no seguinte output: 
-1010101 tem numero par de bits
-1030101 tem numero impar de bits
+Obtive algumas dificuldades com a lógica dessa função, pois não entendi de primeira
+como realizar as operações mas felizmente consegui chegar no seguinte output: 
+1010101 tem número par de bits
+1030101 tem número impar de bits
 
-Exercicio 3: 
+Exercício 3: 
 
-Segue o código das funções e da main feita para o exercicio:
-
+Segue o código das funções e o main feitos para o exercício:
+""""""
 #include <stdio.h>
 unsigned char switch_byte(unsigned char x){
-      int fh= x & 0x0F;
-      
-              int sh= x & 0xF0;
-               
-                      int result= sh>>4 | fh<<4; 
-                          return result;
+    int fh= x & 0x0F;
+    printf("%x\n", fh);
+    int sh= x & 0xF0;
+    printf("%x\n", sh);
+    int result= sh>>4 | fh<<4; 
+    return result;
 }
 unsigned char rotate_left(unsigned char x, int n){
-      int z= x << n;
-          int y= x >> (8-n);
-              int result= z | y;
-                  return result;
+    int z= x << n;
+    int y= x >> (8-n);
+    int result= z | y;
+    return result;
 
 
 }
 
 int main (void){
-      unsigned char x=0xAB;
-          
-              printf("%x\n", rotate_left(0x61, 2));
-                  printf("%x\n", rotate_left(0x61, 1));
-                      printf("%x\n", rotate_left(0x61, 7));
-                          return 0;
+    unsigned char x=0xAB;
+    
+    printf("%x\n", rotate_left(0x61, 2));
+    printf("%x\n", rotate_left(0x61, 1));
+    printf("%x\n", rotate_left(0x61, 7));
+    return 0;
 }
+""""
+A) A função switch_byte divide o byte em dois antes de inverter, para que assim seja possível fazer tal operação, 
+Ao comparar as metades com 0x0F e 0xF0 respectivamente, é possível separar exatamente a metade dos bits, já que como metade está 'desligada', logo retornará 0
+e vice-versa, assim, ao usar o operador | nas metades, como eles se "completam" o bit invertido pode ser retornado 
 
-A) A função switch_byte divide o byte em dois antes de inverter, para que assim seja posível fazer tal operação, 
-ao comparar as metades com 0x0F e 0xF0 respectivamente, é posível separar exatemente a metade dos bits, já que como metade está 'desligada', logo retornara 0
-e vice versa, assim, ao usar o operador | nas metades, como eles se "completam" o bit invertido pode ser retornado 
-
-B) A Função rotate_left, segue um padrão parecido com o swich_byte, uma vez que, também divido um bit em 2 e os junto em uma terceira variavel, a difereça é que ao invés de compara-los
-eu vou shiftar primeiramente o numero que está no parametro, e depois shiftar novamente o valor restante (8-n) para o lado oposto, após isso realizar a comparação assim como a função acima 
-
-o valor do output dos testes é: 
+B) A função rotate_left, segue um padrão parecido com o swich_byte, uma vez que, também divido um bit em 2 e os junto em uma terceira variável, a diferença é que ao invés de compará-los
+Eu vou shiftar primeiramente o número que está no parâmetro, e depois shiftar novamente o valor restante (8-n) para o lado oposto, após isso realizar a comparação assim como a função acima 
 
 @livramos ➜ /workspaces/software_basico_2/lab_3_12 (main) $ ./ex3
 85
 c2
 b0
+
