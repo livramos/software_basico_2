@@ -1,0 +1,189 @@
+Questão 1: 
+-> intb[2] : fazer a conta do dump  
+-> short a[2][3] : fazer a conta do dump
+
+output do dump:
+b: 
+0x7ffcf8cecbc4 - 00
+0x7ffcf8cecbc5 - 00
+0x7ffcf8cecbc6 - 00
+0x7ffcf8cecbc7 - 00
+0x7ffcf8cecbc8 - 01
+0x7ffcf8cecbc9 - 00
+0x7ffcf8cecbca - 00
+0x7ffcf8cecbcb - 00
+a: 
+0x7ffcf8cecbcc - 00
+0x7ffcf8cecbcd - 00
+0x7ffcf8cecbce - 01
+0x7ffcf8cecbcf - 00
+0x7ffcf8cecbd0 - 02
+0x7ffcf8cecbd1 - 00
+0x7ffcf8cecbd2 - 03
+0x7ffcf8cecbd3 - 00
+0x7ffcf8cecbd4 - 04
+0x7ffcf8cecbd5 - 00
+0x7ffcf8cecbd6 - 05
+0x7ffcf8cecbd7 - 00
+
+-> questão 2: 
+output da struct: 
+@livramos ➜ /workspaces/software_basico_2/lab_5 (main) $ ./ex1
+0x7ffd590884e8 - 01
+0x7ffd590884e9 - 00
+0x7ffd590884ea - 00
+0x7ffd590884eb - 00
+0x7ffd590884ec - 02
+0x7ffd590884ed - 00
+0x7ffd590884ee - 00
+0x7ffd590884ef - 00
+0x7ffd590884f0 - 03
+0x7ffd590884f1 - 00
+0x7ffd590884f2 - 00
+0x7ffd590884f3 - 00
+
+output da b: 
+dump de x (struct X): 
+0x5767f1098010 - a4
+0x5767f1098011 - a3
+0x5767f1098012 - a2
+0x5767f1098013 - a1
+0x5767f1098014 - b2
+0x5767f1098015 - b1
+0x5767f1098016 - 00
+0x5767f1098017 - 00
+0x5767f1098018 - c4
+0x5767f1098019 - c3
+0x5767f109801a - c2
+0x5767f109801b - c1
+tamanho de x: 12
+
+*explicar o motivo do "buraco" entre as varíaveias, provavelmente se da via o padding*
+
+->> realizar as contas da questão 3 levando em consideração o padding, 
+colocarei o output do codigo compilado abaixo 
+
+x1:
+0x57f5b2026010 - c1
+0x57f5b2026011 - 00
+0x57f5b2026012 - 00
+0x57f5b2026013 - 00
+0x57f5b2026014 - 04
+0x57f5b2026015 - 03
+0x57f5b2026016 - 02
+0x57f5b2026017 - 01
+0x57f5b2026018 - c2
+0x57f5b2026019 - 00
+0x57f5b202601a - 00
+0x57f5b202601b - 00
+
+x2:
+0x57f5b2026020 - 08
+0x57f5b2026021 - 07
+0x57f5b2026022 - 06
+0x57f5b2026023 - 05
+0x57f5b2026024 - 04
+0x57f5b2026025 - 03
+0x57f5b2026026 - 02
+0x57f5b2026027 - 01
+0x57f5b2026028 - c1
+0x57f5b2026029 - 00
+0x57f5b202602a - 00
+0x57f5b202602b - 00
+0x57f5b202602c - 00
+0x57f5b202602d - 00
+0x57f5b202602e - 00
+0x57f5b202602f - 00
+
+x3:
+0x57f5b2026030 - 04
+0x57f5b2026031 - 03
+0x57f5b2026032 - 02
+0x57f5b2026033 - 01
+0x57f5b2026034 - c1
+0x57f5b2026035 - c2
+0x57f5b2026036 - 00
+0x57f5b2026037 - 00
+
+x4:
+0x57f5b2026040 - 08
+0x57f5b2026041 - 07
+0x57f5b2026042 - 06
+0x57f5b2026043 - 05
+0x57f5b2026044 - 04
+0x57f5b2026045 - 03
+0x57f5b2026046 - 02
+0x57f5b2026047 - 01
+0x57f5b2026048 - c1
+0x57f5b2026049 - 00
+0x57f5b202604a - 00
+0x57f5b202604b - 00
+0x57f5b202604c - 00
+0x57f5b202604d - 00
+0x57f5b202604e - 00
+0x57f5b202604f - 00
+0x57f5b2026050 - c2
+0x57f5b2026051 - 00
+0x57f5b2026052 - 00
+0x57f5b2026053 - 00
+0x57f5b2026054 - 00
+0x57f5b2026055 - 00
+0x57f5b2026056 - 00
+0x57f5b2026057 - 00
+
+x5:
+0x57f5b2026058 - c1
+0x57f5b2026059 - c2
+0x57f5b202605a - c3
+
+x6:
+0x57f5b2026060 - 02
+0x57f5b2026061 - 01
+0x57f5b2026062 - 00
+0x57f5b2026063 - 00
+0x57f5b2026064 - 04
+0x57f5b2026065 - 03
+0x57f5b2026066 - 02
+0x57f5b2026067 - 01
+0x57f5b2026068 - c1
+0x57f5b2026069 - c2
+0x57f5b202606a - c3
+0x57f5b202606b - 00
+0x57f5b202606c - 02
+0x57f5b202606d - 01
+0x57f5b202606e - 00
+0x57f5b202606f - 00
+
+u1 (int)
+0x7ffc9912e130 - 04
+0x7ffc9912e131 - 03
+0x7ffc9912e132 - 02
+0x7ffc9912e133 - 01
+0x7ffc9912e134 - fc
+0x7ffc9912e135 - 7f
+0x7ffc9912e136 - 00
+0x7ffc9912e137 - 00
+u1 (char)
+0x7ffc9912e130 - cc
+0x7ffc9912e131 - cc
+0x7ffc9912e132 - cc
+0x7ffc9912e133 - cc
+0x7ffc9912e134 - cc
+0x7ffc9912e135 - 7f
+0x7ffc9912e136 - 00
+0x7ffc9912e137 - 00
+
+u2 (short)
+0x7ffc9912e12a - 02
+0x7ffc9912e12b - 01
+0x7ffc9912e12c - a6
+0x7ffc9912e12d - 78
+0x7ffc9912e12e - 00
+0x7ffc9912e12f - 00
+u2 (char)
+0x7ffc9912e12a - cc
+0x7ffc9912e12b - cc
+0x7ffc9912e12c - cc
+0x7ffc9912e12d - cc
+0x7ffc9912e12e - cc
+0x7ffc9912e12f - 00

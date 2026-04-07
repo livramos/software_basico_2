@@ -1,0 +1,53 @@
+
+
+output questão 3 
+-> explicar o motivo
+@livramos ➜ .../software_basico_2/lab_4_19/03/inf1018 (main) $ gcc -Wall ex3.c -o ex3
+@livramos ➜ .../software_basico_2/lab_4_19/03/inf1018 (main) $ ./ex3
+uso: ./ex3 <word (em hexadecimal)> <bytenum>
+@livramos ➜ .../software_basico_2/lab_4_19/03/inf1018 (main) $ ./ 01abcd02 0
+00000002  2
+bash: ./: Is a directory
+bash: 00000002: command not found
+@livramos ➜ .../software_basico_2/lab_4_19/03/inf1018 (main) $ ./ex3 01abcd02 0 00000002  
+2
+uso: ./ex3 <word (em hexadecimal)> <bytenum>
+@livramos ➜ .../software_basico_2/lab_4_19/03/inf1018 (main) $ ./ex3
+uso: ./ex3 <word (em hexadecimal)> <bytenum>
+@livramos ➜ .../software_basico_2/lab_4_19/03/inf1018 (main) $ ./ex3 01abcd02 0
+00000002  2
+@livramos ➜ .../software_basico_2/lab_4_19/03/inf1018 (main) $ ./ex3 11a032b5 0
+ffffffb5  -75
+@livramos ➜ .../software_basico_2/lab_4_19/03/inf1018 (main) $ ./ex3 11a032b5 1
+00000032  50
+@livramos ➜ .../software_basico_2/lab_4_19/03/inf1018 (main) $ ./ex3 11a032b5 2
+ffffffa0  -96
+@livramos ➜ .../software_basico_2/lab_4_19/03/inf1018 (main) $ ./ex3 11a032b5 3
+00000011  17
+@livramos ➜ .../software_basico_2/lab_4_19/03/inf1018 (main) $ ./ex3 abcd 3
+00000000  0
+@livramos ➜ .../software_basico_2/lab_4_19/03/inf1018 (main) $ ./ex3 abcd 1
+
+ffffffab  -85
+@livramos ➜ .../software_basico_2/lab_4_19/03/inf1018 (main) $ 
+@livramos ➜ .../software_basico_2/lab_4_19/03/inf1018 (main) $ ./ex3 zzzzz 1
+pane: numero invalido! 
+
+output questão 4 
+-> explicar o motivo 
+
+@livramos ➜ .../software_basico_2/lab_4_19/03/inf1018 (main) $ gcc -Wall ex4.c -o ex4
+@livramos ➜ .../software_basico_2/lab_4_19/03/inf1018 (main) $ ./ex4
+x=-1, y=2
+x é menor do que y? sim
+@livramos ➜ .../software_basico_2/lab_4_19/03/inf1018 (main) $ gcc -Wall ex4.c -o ex4
+@livramos ➜ .../software_basico_2/lab_4_19/03/inf1018 (main) $ ./ex4
+x=-1, y=2
+x é menor do que y? nao
+@livramos ➜ .../software_basico_2/lab_4_19/03/inf1018 (main) $ gcc -Wall ex4.c -o ex4
+@livramos ➜ .../software_basico_2/lab_4_19/03/inf1018 (main) $ ./ex4
+x=-1, y=2
+x é menor do que y? nao
+@livramos ➜ .../software_basico_2/lab_4_19/03/inf1018 (main) $ 
+
+Questões 1,2,5 estarão no pdf enviado pelo moodle 
