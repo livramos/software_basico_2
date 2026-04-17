@@ -1,53 +1,95 @@
+Questão 3 - Função xbyte
 
+int xbyte (packed_t word, int bytenum) {
+  if (bytenum < 0 || bytenum > 3) {
+    printf("pane: numero de byte invalido! \n");
+    exit(1);
+  }
+  word = word >> (bytenum * 8);
+  word = word & 0xFF;
+  if (word & 0x80) {
+    word = word | 0xFFFFFF00;
+  }
+  return word;
+}
 
-output questão 3 
--> explicar o motivo
-@livramos ➜ .../software_basico_2/lab_4_19/03/inf1018 (main) $ gcc -Wall ex3.c -o ex3
-@livramos ➜ .../software_basico_2/lab_4_19/03/inf1018 (main) $ ./ex3
+@livramos ➜ $ gcc -Wall ex3.c -o ex3
+@livramos ➜ $ ./ex3
 uso: ./ex3 <word (em hexadecimal)> <bytenum>
-@livramos ➜ .../software_basico_2/lab_4_19/03/inf1018 (main) $ ./ 01abcd02 0
+@livramos ➜ $ ./ex3 01abcd02 0
 00000002  2
-bash: ./: Is a directory
-bash: 00000002: command not found
-@livramos ➜ .../software_basico_2/lab_4_19/03/inf1018 (main) $ ./ex3 01abcd02 0 00000002  
-2
-uso: ./ex3 <word (em hexadecimal)> <bytenum>
-@livramos ➜ .../software_basico_2/lab_4_19/03/inf1018 (main) $ ./ex3
-uso: ./ex3 <word (em hexadecimal)> <bytenum>
-@livramos ➜ .../software_basico_2/lab_4_19/03/inf1018 (main) $ ./ex3 01abcd02 0
-00000002  2
-@livramos ➜ .../software_basico_2/lab_4_19/03/inf1018 (main) $ ./ex3 11a032b5 0
+@livramos ➜ $ ./ex3 11a032b5 0
 ffffffb5  -75
-@livramos ➜ .../software_basico_2/lab_4_19/03/inf1018 (main) $ ./ex3 11a032b5 1
+@livramos ➜ $ ./ex3 11a032b5 1
 00000032  50
-@livramos ➜ .../software_basico_2/lab_4_19/03/inf1018 (main) $ ./ex3 11a032b5 2
+@livramos ➜ $ ./ex3 11a032b5 2
 ffffffa0  -96
-@livramos ➜ .../software_basico_2/lab_4_19/03/inf1018 (main) $ ./ex3 11a032b5 3
+@livramos ➜ $ ./ex3 11a032b5 3
 00000011  17
-@livramos ➜ .../software_basico_2/lab_4_19/03/inf1018 (main) $ ./ex3 abcd 3
+@livramos ➜ $ ./ex3 abcd 3
 00000000  0
-@livramos ➜ .../software_basico_2/lab_4_19/03/inf1018 (main) $ ./ex3 abcd 1
-
+@livramos ➜ $ ./ex3 abcd 1
 ffffffab  -85
-@livramos ➜ .../software_basico_2/lab_4_19/03/inf1018 (main) $ 
-@livramos ➜ .../software_basico_2/lab_4_19/03/inf1018 (main) $ ./ex3 zzzzz 1
-pane: numero invalido! 
+@livramos ➜ $ ./ex3 zzzzz 1
+pane: numero invalido!
 
-output questão 4 
--> explicar o motivo 
+Resumo:
+A função extrai um byte de um inteiro de 32 bits usando deslocamento (>>) e máscara (&0xFF).
+ Se o bit 7 estiver ligado, aplica extensão de sinal (|0xFFFFFF00) para converter para inteiro com sinal de 32 bits. 
+ Os outputs demonstram a extração de cada byte e sua interpretação correta com ou sem sinal.
 
-@livramos ➜ .../software_basico_2/lab_4_19/03/inf1018 (main) $ gcc -Wall ex4.c -o ex4
-@livramos ➜ .../software_basico_2/lab_4_19/03/inf1018 (main) $ ./ex4
-x=-1, y=2
-x é menor do que y? sim
-@livramos ➜ .../software_basico_2/lab_4_19/03/inf1018 (main) $ gcc -Wall ex4.c -o ex4
-@livramos ➜ .../software_basico_2/lab_4_19/03/inf1018 (main) $ ./ex4
-x=-1, y=2
-x é menor do que y? nao
-@livramos ➜ .../software_basico_2/lab_4_19/03/inf1018 (main) $ gcc -Wall ex4.c -o ex4
-@livramos ➜ .../software_basico_2/lab_4_19/03/inf1018 (main) $ ./ex4
-x=-1, y=2
-x é menor do que y? nao
-@livramos ➜ .../software_basico_2/lab_4_19/03/inf1018 (main) $ 
 
-Questões 1,2,5 estarão no pdf enviado pelo moodle 
+Questão 4 - Comparações com Sinal
+
+Programa 1:
+int main (void) {
+  int x = 0xffffffff;
+  int y = 2;
+  printf("x=%d, y=%d\n", x, y);
+  printf("x e menor do que y? %s\n", (x<y)?"sim":"nao");
+  return 0;
+}
+
+@livramos ➜ $ gcc -Wall ex4.c -o ex4
+@livramos ➜ $ ./ex4
+x=-1, y=2
+x e menor do que y? sim
+
+Resumo: int x é interpretado como -1 (complemento de dois). Como -1 < 2, resultado é "sim".
+
+
+Programa 2:
+int main (void) {
+  unsigned int x = 0xffffffff;
+  unsigned int y = 2;
+  printf("x=%d, y=%d\n", x, y);
+  printf("x e menor do que y? %s\n", (x<y)?"sim":"nao");
+  return 0;
+}
+
+@livramos ➜ $ ./ex4
+x=-1, y=2
+x e menor do que y? nao
+
+Resumo: unsigned int x vale 4294967295. Como 4294967295 < 2 é falso, resultado é "nao". 
+(Print usa %d incorreto, mas comparação está correta)
+
+
+Programa 3:
+int main (void) {
+  int x = 0xffffffff;
+  unsigned int y = 2;
+  printf("x=%d, y=%u\n", x, y);
+  printf("x e menor do que y? %s\n", (x<y)?"sim":"nao");
+  return 0;
+}
+
+@livramos ➜ $ ./ex4
+x=-1, y=2
+x e menor do que y? nao
+
+Resumo: Na comparação entre int e unsigned, x (-1) é convertido para unsigned (4294967295). 
+Como 4294967295 < 2 é falso, resultado é "nao".
+
+
+Nota: Questões 1, 2 e 5 estão no PDF do Moodle.

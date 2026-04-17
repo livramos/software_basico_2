@@ -2,8 +2,10 @@
 int nums[] = {10, -21, -30, 45};
 int main() {
   int i, *p;
+  int sum = 0;
   for (i = 0, p = nums; i != 4; i++, p++)
-    printf("%d\n", *p);
+    sum += *p;
+  printf("%d\n", sum);
   return 0;
 }
 */
@@ -27,6 +29,7 @@ main:
 
   movl  $0, %ebx  /* ebx = 0; */
   movq  $nums, %r12  /* r12 = &nums */
+  
 
 L1:
   cmpl  $4, %ebx  /* if (ebx == 4) ? */
