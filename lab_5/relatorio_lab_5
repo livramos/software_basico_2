@@ -1,7 +1,9 @@
 Questão 1: 
--> intb[2] : fazer a conta do dump  
--> short a[2][3] : fazer a conta do dump
+-> int b[2] : 8 bytes no total armazenados na memória  
+-> short a[2][3] : 12 bytes no total armazenados na memória
 
+cheguei a essa conclusão realizando a conta entre o valor de itens no vetor e o tipo do item, 
+por exemplo  o vetor b tem 2 unidades de int logo 4*2=8, e no caso da matriz a é necessário multiplicar linha por coluna para saber a quantidade de itens 
 output do dump:
 b: 
 0x7ffcf8cecbc4 - 00
@@ -26,8 +28,10 @@ a:
 0x7ffcf8cecbd6 - 05
 0x7ffcf8cecbd7 - 00
 
+assim com o output do teste podemos comprovar o que foi dito acima 
+
 -> questão 2: 
-output da struct: 
+output da struct sem os valores imputados: 
 @livramos ➜ /workspaces/software_basico_2/lab_5 (main) $ ./ex1
 0x7ffd590884e8 - 01
 0x7ffd590884e9 - 00
@@ -42,7 +46,7 @@ output da struct:
 0x7ffd590884f2 - 00
 0x7ffd590884f3 - 00
 
-output da b: 
+output da struct com os valores imputados: 
 dump de x (struct X): 
 0x5767f1098010 - a4
 0x5767f1098011 - a3
@@ -58,10 +62,15 @@ dump de x (struct X):
 0x5767f109801b - c1
 tamanho de x: 12
 
-*explicar o motivo do "buraco" entre as varíaveias, provavelmente se da via o padding*
+o buracos entre os campos da structs se dão pelo fato do tamanho que cada variavel ocupa na struct não serem múltiplos, sendo assim é preciso alinha-lo 
+e isso acontece nos valores
+0x5767f1098016 - 00
+0x5767f1098017 - 00
+já que como o int a termina no 3 espaço, o shor b começaria no 4 ( que é múltiplo de 2), entretanto o int c começaria no 6 (que não é múltiplo de 4), sendo assim precisando de 
+2 bytes de padding para chegar no 8 que esse sim é múltiplo de 4 
 
-->> realizar as contas da questão 3 levando em consideração o padding, 
-colocarei o output do codigo compilado abaixo 
+
+->> Questão 3
 
 x1:
 0x57f5b2026010 - c1
@@ -144,7 +153,7 @@ x6:
 0x57f5b2026064 - 04
 0x57f5b2026065 - 03
 0x57f5b2026066 - 02
-0x57f5b2026067 - 01
+0x57f5b2026067 - 01   
 0x57f5b2026068 - c1
 0x57f5b2026069 - c2
 0x57f5b202606a - c3
@@ -187,3 +196,7 @@ u2 (char)
 0x7ffc9912e12d - cc
 0x7ffc9912e12e - cc
 0x7ffc9912e12f - 00
+
+
+
+** esses são apenas os outputs da terceira questão, sua resolução está disponivel no pdf que será enviado no moodle
