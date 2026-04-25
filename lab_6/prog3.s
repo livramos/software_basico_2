@@ -3,7 +3,8 @@ int nums[] = {10, -21, -30, 45};
 int main() {
   int i, *p;
   for (i = 0, p = nums; i != 4; i++, p++)
-    printf("%d\n", *p);
+    if ((*p % 2) == 0)
+      printf("%d\n", *p);
   return 0;
 }
 */
@@ -33,6 +34,9 @@ L1:
   je  L2          /* goto L2 */
 
   movl  (%r12), %eax    /* eax = *r12 */
+  movl   %eax,
+  andl  $1,%edx
+  jnz L3
 
 /*************************************************************/
 /* este trecho imprime o valor de %eax (estraga %eax)  */
@@ -40,7 +44,7 @@ L1:
   movl    %eax, %esi   /* segundo parametro  (inteiro) */
   call  printf       /* chama a funcao da biblioteca */
 /*************************************************************/
-
+L3:
   addl  $1, %ebx  /* ebx += 1; */
   addq  $4, %r12  /* r12 += 4; */
   jmp  L1         /* goto L1; */

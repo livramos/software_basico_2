@@ -9,7 +9,7 @@ int main() {
 */
 
 .data
-nums:  .int  10, -21, -30, 45
+nums:  .byte  10, -21, -30, 45
 Sf:  .string "%d\n"    # string de formato para printf
 
 .text
@@ -32,7 +32,7 @@ L1:
   cmpl  $4, %ebx  /* if (ebx == 4) ? */
   je  L2          /* goto L2 */
 
-  movl  (%r12), %eax    /* eax = *r12 */
+  movsbl  (%r12), %eax    /* eax = *r12 */
 
 /*************************************************************/
 /* este trecho imprime o valor de %eax (estraga %eax)  */
@@ -42,7 +42,7 @@ L1:
 /*************************************************************/
 
   addl  $1, %ebx  /* ebx += 1; */
-  addq  $4, %r12  /* r12 += 4; */
+  addq  $1, %r12  /* r12 += 4; */
   jmp  L1         /* goto L1; */
 
 L2:  

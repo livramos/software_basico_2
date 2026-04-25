@@ -7,4 +7,28 @@ apos compilar e executar o programa disponibilizado, o resultado foi
 -30
 45
 
+as semelhanças entre o código em assembly e o código em c pode ser percebido através de alguns fatores
+nums:  .int  10, -21, -30, 45
+Sf:  .string "%d\n" 
+ a tipagem dos dados onde em c acontece de maneira distinta, em assembly ocorre assim
+ ambos os códigos fazem a mesma coisa, mas em assebly as a sintaxe se aparenta mais restritiva 
+  por exemplo: 
+   movq  $nums, %r12 
+ a estrutura é basicamente um comando, o valor que ira receber, a variavel que ele será atribuido 
+
+dá pra ver uma correspondencia clara entre ambos os códigos por mais que a sintaxe e alocação de memória sejam expressas de maneiras distintas
+
 -> questão 2:
+    na minha modificação, adicionei um callee-saved de 32 bits ( um inteiro) para representar o valor armazenado da soma
+    com ele, pego o valor do conteudo de r12 que está armazenado em eax e o somo em %r13d, assim sendo possível a realização da soma
+    também passei o bloco que chama a função para fora do loop, e movendo r13d ao invés de eax, para que assim seja possível a 
+    impressão da soma
+
+-> questão 3: 
+  na minha modificação adicionei uma comparação para que, caso a o final da  operação bit a bit seja diferente de zero,
+  ele seja transferido para L3, a iteração sendo assim é pulada demostrando que o numero era sim, impar, caso contrário, 
+  o código segue normalmente, sendo impresso e só ai resultando na iteração
+
+-> questão 4:
+ para realizar essas modificações, do int para o byte e a extensão de sinal ao invés de adicionar 4 no called-save que iterava para o prox item
+ adicionei 1, assim só se move 1 byte ao invés de 4, e para a extensão de seu sinal, utilizei o comando movsbl ao invés de movsl, assim a extensão de sinal é feita automaticamente, e o resultado é o mesmo, mas utilizando menos memória   
