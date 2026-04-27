@@ -1,0 +1,50 @@
+-> Questão 1:
+existe uma correspondencia direta entre eles, uma vez que o código em assembly é uma 
+tradução do código em c onde em 
+.data
+S2:    .byte 65, 108, 111, 32, 123, 103, 97, 108, 101, 114, 97, 125, 33, 0
+Sf:  .string "%c"    /* primeira string de formato para printf */
+Sf2: .string "\n"    /* segunda string de formato para printf */
+temos as definições das varíaveis onde por ser char estamos usando o .byte (que representa apenas 1 byte)
+L1:
+  cmpb  $0, (%r12)  /* if (*pc == 0) ? */
+  je  L2          /* goto L2 */
+
+  movsbl  (%r12), %eax  
+é onde é montada a estrutura básica do loop, tendo a comparação de que caso o conteudo do 
+registrador %r12 (no caso a array S2), seja 0 logo ele printa o /n e termina o looping encerrando o código
+agora, caso o contrario
+
+  movsbl  (%r12), %eax    /* eax = *r12 (estendendo o byte para 32 bits */
+
+/*************************************************************/
+/* este trecho imprime o valor de %eax (estraga %eax)  */
+  movq    $Sf, %rdi    /* primeiro parametro (ponteiro)*/
+  movl    %eax, %esi   /* segundo parametro  (inteiro) */
+  movl  $0, %eax
+  call  printf       /* chama a funcao da biblioteca */
+/*************************************************************/
+
+  addq  $1, %r12  /* r12 += 1; */
+  jmp  L1         /* goto L1; */
+
+ele estende esse byte para 32 bits, o tornando um inteiro e o printa
+após isso adiciona 1 no valor do registrador %r12, ponteiro para o endereço do elemento da array, 
+fazendo com que assim avançe para o próximo elemento e voltando para o inicio do loop 
+
+-> Questão 2: 
+as minhas modificações feitas em c, foi um if que verificava ambas condições caso passase, o valor seria imprimido, 
+e a iteração que anteriormente ficava no print, agora se encontra fora do if no final do while
+
+já em assembly, adicionei as seguintes linhas antes da conversão para 32bits do byte
+ 
+ cmpb $123,(%r12)
+  je L3
+  cmpb $125,(%r12)
+  je L3
+
+verifico o valor do conteudo do registrador r12, e caso seu resultado for um dos dois valores, ele vai pra L3,
+nomeei a parte do codigo com a iteração  como L3. essas duas comparações cumprem o papel que o if que fiz em c 
+cumpre, verificação dos valores antes do print 
+
+-> Questão 3 
