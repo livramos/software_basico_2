@@ -7,5 +7,6 @@ Matéria INF1018, focada em entender armazenamento de dados na maquina e posteri
 4 laboratorio: Inteiros com e sem sinal <br>
 5 laboratorio: Representação de Arrays e Struct <br>
 6 laboratório: Assembly: Operações aritméticas e lógicas <br>
-7 laboratório: Assembly: Tradução de estruturas de controle
+7 laboratório: Assembly: Tradução de estruturas de controle <br>
+8 laboratório: Assembly: Chamadas de funções em Assembly 
  
