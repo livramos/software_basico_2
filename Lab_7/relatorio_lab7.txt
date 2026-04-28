@@ -48,3 +48,14 @@ nomeei a parte do codigo com a iteração  como L3. essas duas comparações cum
 cumpre, verificação dos valores antes do print 
 
 -> Questão 3 
+para a fução em c, fiz um simples while que rodava até ser maior ou igual 10, 
+printando o valor e iterando logo após
+realizei a mesma operação em assembly, apenas invertendo a condição da comparação
+para que o programa finalizasse apenas quando o iterador fosse maior que 10, 
+e no final direcionando para o inicio do código, mantendo o looping 
+
+-> Questão 4: 
+
+Realizei a tradução usando 3 calle-saved r12, r13d e r14d onde r12 armazena a array, r13d o iterador e r14d a soma total 
+utilizei a mesma lógica para realizar as iterações que a questão 3, apenas adicionando a iteração da array e somando o conteudo de r12 
+em r14d, após a iterção realizei o print e assim finalizei o código 
