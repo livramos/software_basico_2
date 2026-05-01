@@ -1,0 +1,27 @@
+-> Questão 1
+para a tradução em assembli do código em c apenas adicionei a string s1 
+para o registrador de primeiro argumento de função %rdi
+usando movq $s1, %rdi e a chamei no comando seguinte usando o call system 
+após isso adicione ao esqueleto dado pela questão e pude perceber que o output foi o mesmo da função em c 
+
+-> Questão 2 
+output da função em c 
+@livramos ➜ /workspaces/software_basico_2/Lab_8 (main) $ ./ex2
+3
+0
+7
+8
+0
+
+realizei a tradução da função filtro e da função main
+na main, primeiro chamei a função filtro para dps chamar a printf, armazedando o valor de eax em um caller-save 
+para não perder esse valor ao chamar o printf e na função filtro apenas fiz uma comparação e atribui o valor a eax dependendo do resultado 
+output da função traduzida em assembli
+
+
+@livramos ➜ /workspaces/software_basico_2/Lab_8 (main) $ ./ex2
+3
+0
+7
+8
+0
