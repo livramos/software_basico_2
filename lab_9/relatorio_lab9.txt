@@ -9,3 +9,52 @@ caso o contrario uso esses dois registradores para armazenar o valor do parametr
 enquanto no r13d subtraio 1 e transfiro para o valor do parametro, chamando a função e realizando a recursão
 
 -> Questão 3: 
+output da função em c na main criada:
+
+@livramos ➜ /workspaces/software_basico_2/lab_9 (main) $ gcc -Wall -no-pie -o ex3 ex3_foo.c ex3_main.c
+@livramos ➜ /workspaces/software_basico_2/lab_9 (main) $ ./ex3
+antes da funcao
+3
+2
+0
+4
+1
+0
+5
+depois da funcao
+3
+2
+5
+4
+1
+5
+5
+
+output da função em assembli na função main criada:
+
+livramos ➜ /workspaces/software_basico_2/lab_9 (main) $ gcc -Wall -no-pie -o ex3 ex3_foo.s ex3_main.c
+/usr/bin/ld: warning: /tmp/ccimRlIn.o: missing .note.GNU-stack section implies executable stack
+/usr/bin/ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
+@livramos ➜ /workspaces/software_basico_2/lab_9 (main) $ ./ex3
+antes da funcao
+3
+2
+0
+4
+1
+0
+5
+depois da funcao
+3
+2
+5
+4
+1
+5
+5
+
+para essa função realizei  na main, um for passando pelo vetor antes e depois da função para ver as diferenças apresenrtadas
+já em assembli armazenei o i no r13d e o s no r12, assim utilizei rdi e esi como os registradores do 1 e segundo parametro
+fiz 1 label para a iteração do for, outra para o if e a última para a finalização da função,
+tive muita dificuldade para saber aonde era necessário usar os parenteses e onde era somente o registrador,mas tirando isso acredito que consegui 
+realizar a função da maneira adequada 
