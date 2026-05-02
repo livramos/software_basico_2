@@ -1,0 +1,11 @@
+-> Questão 1:
+traduzi a função soma primeiramente colocando o prologo, mas sem alocar nenhum called save, apenas somei o valor do primeiro argumento com o segundo
+e somei o segundo com o terceiro o alocando no valor de retorno, logo após utilizei o leave ret para finalizar, desfazendo as alterações que fiz no prologo e liberando memória 
+e assim terminando minha função, compilei com a main de exemplo dada no lab e obtive 6, o mesmo valor que obtive quando compilei com a função em c 
+
+-> Questão 2: 
+traduzi a função, utilizei de 2 registradores called save e duas labels, caso a primeira condicional fosse verdadeira, pula para e retorno e pula novamente para a finalização
+caso o contrario uso esses dois registradores para armazenar o valor do parametro, sendo que no r12d, eu só o guardo para a multiplicação
+enquanto no r13d subtraio 1 e transfiro para o valor do parametro, chamando a função e realizando a recursão
+
+-> Questão 3: 
