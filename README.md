@@ -1,4 +1,4 @@
-<h2> software_basico_2 <h2>
+# <h2> software_basico_2 <h2>
 Matéria INF1018 no semestre de 2026.01, focada em entender armazenamento de dados na maquina e posteriormente lidar com a linguagem assembly, as pastas contem diferentes laboraórios que estou fazendo conforme o andar da matéria, trabalhos relacionados e desenvolvimento de questões de provas também podem ser encontrados aqui
 
 1 laboratório: Aquecimento<br>
