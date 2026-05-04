@@ -1,6 +1,6 @@
 
 -> Questão 01: 
-ao traduzir a função add para assembli, usei o offset 8 para chegar no proximo item da struct, movendo o registrador para o 
+ao traduzir a função add para y, usei o offset 8 para chegar no proximo item da struct, movendo o registrador para o 
 proximo item com a instrução 
  movq  8(%rdi),%rdi
 assim consegui acessar os outros itens para realixar a soma, dando o mesmo resultado de quando compilei com a função em c (45)
@@ -9,4 +9,47 @@ assim consegui acessar os outros itens para realixar a soma, dando o mesmo resul
   nessa questão, achei mais dificil por conta de ser recursiva e ser necessário pegar o valor inicial, para isso precisei recorrer ao valor setado a r12 no prólogo, mas após muita tentativa e erro
   cheguei nessa conclusão e consegui realizar a função       
 
--> Questão 03:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+-> Questão 03: 
+para essa questão foi preciso usar o que aprendemos sober chamar funções e iterações, acho que grande parte da dificuldade veio 
+pela maneira de acessar a struct que vinha como parametro para a função e usar o mesmo registrador, para acessar apenas um dos itens da struct
+usei 3 registradores called-save r12 para armazenar o 2 argumento (que seria sobscrito na função chamada), r13 para salvar o item 2 da struct e o r14 para salvar a struct por completo,
+pois o registrador do 1 argumento também seria sobscrito, utilizei de duas labels  e armazenei 24 bytes, liberando todos no final do programa 
+
+-> Questão 04:
+
+output da questão usando a função em C:
+
+@livramos ➜ /workspaces/software_basico_2/Lab_10 (main) $ gcc -Wall -no-pie -o ex4 ex4_lab10.c ex4_main_lab10.c
+@livramos ➜ /workspaces/software_basico_2/Lab_10 (main) $ ./ex4
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+ 
+Output da função em assembly: 
+
+@livramos ➜ /workspaces/software_basico_2/Lab_10 (main) $ gcc -Wall -no-pie -o ex4 ex4_lab10.s ex4_main_lab10.c
+/usr/bin/ld: warning: /tmp/ccFU8lkX.o: missing .note.GNU-stack section implies executable stack
+/usr/bin/ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
+@livramos ➜ /workspaces/software_basico_2/Lab_10 (main) $ ./ex4
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+
+para realizar essa função utilizei de 4 registradores called save e 32bytes salvei os valores iniciais dos argumentos da função neles e o int i também
+para que assim não se perdessem quando a função f fosse chamada, fiz todos esses salvamentos antes do loop afim de preservar os valores dos argumentos
+maior dificuldade foi lidar com os ponteiros e sua indexação, somei 4 aos registradores para poder iterar da mesma maneira que a função em c e assim obter 
+o resultado esperado 
