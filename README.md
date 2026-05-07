@@ -10,4 +10,5 @@ Matéria INF1018 no semestre de 2026.01, focada em entender armazenamento de dad
 7 laboratório: Assembly: Tradução de estruturas de controle <br>
 8 laboratório: Assembly: Chamadas de funções em Assembly <br>
 9 laboratório: Funções: parâmetros e registro de ativação <br>
-10 laboratório: Mais Funções em Assembly 
+10 laboratório: Mais Funções em Assembly  <br>
+11 laboratório: Variáveis Locais
