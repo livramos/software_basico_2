@@ -1,0 +1,15 @@
+-> questão 1:
+montei a tradução da função utilizando do leaq para passar o endereço do meu registrador r12 para a função scanf
+assim, foi possivel armazenar no -8(%rbp) o valor passado por ele, após isso armazenei oq estava nesse slot de memória no %eax
+e assim consegui retornar o valor original para o slot, restaurando %r12
+
+-> Questão 2: 
+para traduzir a função bemboba, utilizei 3 registradores, r12,r13,14 diminuindo 32 bytes, principalmente por conta do vetor e alinhamento
+a função passa o endereço do vetor para o ponteiro a em leaq  -32(%rbp),%r14 e apartir disso
+toda iteração do for ele verifica se é maior que 4, caso n pega o valor do int num (edi) e passa para o seu conteudo para o vetor local (agora representado por a uma vez que passamos o endereço do 1 espaço de memória dele )
+ou seja 
+*a=num vira movl  %edi,(%r14)
+após isso é apenas a iteração tanto do vetor quando do índice 
+
+no final para o chamar da função addl  utilizei o leaq novamente para pegar o inicio do vetor e coloca-lo no 1 parametro 
+após isso chamo a função normalmente e finalizo o código 
