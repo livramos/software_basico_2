@@ -1,0 +1,28 @@
+1- traduzi a fução da seguinte forma: 
+
+.text
+.globl foo
+
+foo:
+addl  $1,%edi 
+movl  $0,%eax
+movl  %edi, %eax
+
+ret
+
+e assim que utilizei o cmando obtive o seguinte output
+
+Disassembly of section .text:
+foo.o:     file format elf64-x86-64
+
+
+0000000000000000 <foo>:
+   0:   83 c7 01                add    $0x1,%edi
+   3:   b8 00 00 00 00          mov    $0x0,%eax
+   8:   89 f8                   mov    %edi,%eax
+   a:   c3                      ret
+
+   com isso é possivel perceber que temos a tradução em hexa decimal 
+   da nossa função de um lado, mostrando exatamente o quanto que ela ocupa 
+
+3-

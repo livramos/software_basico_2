@@ -12,4 +12,5 @@ Matéria INF1018 no semestre de 2026.01, focada em entender armazenamento de dad
 9 laboratório: Funções: parâmetros e registro de ativação <br>
 10 laboratório: Mais Funções em Assembly  <br>
 11 laboratório: Variáveis Locais <br>
-12 laboratório: Invasão da Pilha de Execução
+12 laboratório: Invasão da Pilha de Execução <br>
+13 laboratório: Código de Máquina

