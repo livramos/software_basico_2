@@ -10,7 +10,8 @@ movl  %edi, %eax
 
 ret
 
-e assim que utilizei o cmando obtive o seguinte output
+e assim que utilizei o comando obtive o seguinte output
+
 
 Disassembly of section .text:
 foo.o:     file format elf64-x86-64
@@ -26,3 +27,35 @@ foo.o:     file format elf64-x86-64
    da nossa função de um lado, mostrando exatamente o quanto que ela ocupa 
 
 3-
+ao compilar a main montada obtive esse valor 
+@livramos ➜ /workspaces/software_basico_2/Lab_13 (main) $ ./ex3
+11
+com isso podemos concluir que uma vez que o ponteiro de função tem acesso a array do código de maquina de foo
+ele é capaz de reproduzi-lo com o parametro passado para o atributo do seu typedef (no caso o 10)
+assim retornando 11
+
+4-
+output do Disassembly:
+ex4_13.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <foo>:
+   0:   b8 00 00 00 00          mov    $0x0,%eax
+   5:   e8 00 00 00 00          call   a <foo+0xa>
+   a:   c3 
+
+5- Modificou-se a função `foo` em assembly para chamar `add` via instrução `call`,
+ cujo código de máquina é `e8` seguido de 4 bytes de deslocamento relativo. O array `codigo[]` 
+ foi declarado como variável global e preenchido com esses bytes (`e8 00 00 00 00 c3`). 
+ O deslocamento correto foi calculado programaticamente como `(char*)add - (char*)(codigo + 5)`
+  e escrito nos bytes 1 a 4 do array. Por fim, a função `execpage` foi utilizada para conceder 
+  permissão de execução à página de memória do array, permitindo a execução correta do código.
+
+6-Substituiu-se a instrução `call add` por `jmp add` no assembly de `foo`, 
+cujo opcode é `e9` (em vez de `e8`). No array `codigo[]`, apenas o primeiro byte foi alterado de 
+`0xe8` para `0xe9`, mantendo a mesma estrutura de deslocamento. Diferente do `call`, 
+o `jmp` não empilha o endereço de retorno — quando `add` executa o `ret`,
+ retorna diretamente ao chamador de `foo` (tail call). O resultado continua sendo `11`,
+ pois o comportamento final é equivalente neste caso.
