@@ -1,0 +1,25 @@
+1->  Para duplicar um float sem usar operações de ponto flutuante,
+ utilizei a union para acessar os bits da representação IEEE 754 como um unsigned int. 
+ Extraí separadamente o sinal, o expoente em excesso e a mantissa usando as macros do lab. 
+ Como multiplicar por 2 equivale a somar 1 ao expoente, incrementei apenas esse campo e recompus 
+ o float com makefloat mantendo sinal e mantissa inalterados.
+
+@livramos ➜ /workspaces/software_basico_2/Lab_14 (main) $ gcc -Wall -o ex1_14 ex1_14.c
+@livramos ➜ /workspaces/software_basico_2/Lab_14 (main) $ ./ex1_14
+8.500000
+-6.000000
+
+2-> A função int2float converte um inteiro para float manipulando diretamente os bits da representação IEEE 754, 
+ sem usar operações de ponto flutuante. O sinal é extraído com getsig, e o valor absoluto é calculado para evitar problemas com o shift em 
+ inteiros negativos. A posição do bit mais significativo é encontrada via loop de shifts, determinando o expoente armazenado como k + 127. 
+ A fração é calculada deslocando o valor absoluto para alinhar os bits abaixo do MSB nos 23 bits do campo frac,
+ e o resultado é montado com makefloat e convertido para float via union.
+
+******** int2float ****************
+ 0 ->    +0.0000
+ 1 ->    +1.0000
+ -1 ->    -1.0000
+ 2147483647 -> +1073741824.0000
+ -2147483647 -> -1073741824.0000
+ 12345 -> +12345.0000
+ -12345 -> -12345.0000
