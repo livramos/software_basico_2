@@ -1,0 +1,143 @@
+1->  compilei os arquivos criados 
+
+2->  output do temp1 usando o nm
+@livramos ➜ /workspaces/software_basico_2/Lab_16 (main) $ nm temp1.o
+0000000000000000 D a
+                 U foo
+0000000000000000 T main
+                 U printf
+
+output do nm usando o temp2 
+@livramos ➜ /workspaces/software_basico_2/Lab_16 (main) $ nm temp2.o
+                 U a
+0000000000000000 D b
+0000000000000000 T foo
+
+3-> o output do erro
+@livramos ➜ /workspaces/software_basico_2/Lab_16 (main) $ gcc -c -Wall temp1.c
+temp1.c:4:6: error: conflicting types for ‘a’; have ‘char’
+    4 | char a = 1;
+      |      ^
+In file included from temp1.c:2:
+temp1.h:1:12: note: previous declaration of ‘a’ with type ‘int’
+    1 | extern int a;
+      |            ^
+
+o erro ocorre pq a é uma variavel externa que está sendo usada no programa temp1.c 
+mas tmb esta sendo usada na temp1.h acredito que o erro seja de linkedição.
+
+sim, a inclusão deles mantém a padronização nas variaveis existentes em ambas 
+aplicações para que todas elas possuam a mesma tipagem
+
+4-> a) 
+Ao trocar o include pelo extern char a, o programa compilou e ligou sem erros, 
+mas ao rodar imprimiu 1277 em vez de -3. Isso aconteceu porque foo() passou a 
+enxergar a como char (1 byte) e escreveu só 1 byte de -3 (0xFD) no endereço de a.
+ Mas a é um int de 4 bytes valendo 1024 (0x00000400), então depois da escrita os 
+ bytes ficaram FD 04 00 00, que lido como int em little-endian dá 1277.
+ O erro não apareceu na compilação nem na ligação, só na execução
+
+b)
+aconteceu um erro ao tentar formar o executavel dos ambos juntos, output:
+@livramos ➜ /workspaces/software_basico_2/Lab_16 (main) $ gcc -o prog  temp1.o temp2.o
+/usr/bin/ld: temp2.o:(.data+0x0): multiple definition of `a'; temp1.o:(.data+0x0): first defined here
+collect2: error: ld returned 1 exit status
+
+pq foi definido o a masi de uma vez, sem utilizar o extern, no nm ele fica assim
+
+@livramos ➜ /workspaces/software_basico_2/Lab_16 (main) $ nm temp1.o
+0000000000000000 D a
+                 U foo
+0000000000000000 T main
+                 U printf
+@livramos ➜ /workspaces/software_basico_2/Lab_16 (main) $ nm temp2.o
+0000000000000000 D a
+0000000000000004 D b
+0000000000000000 T foo
+
+Ao trocar por int a = 1, ocorreu erro na ligação (não na compilação). 
+Como a agora é definido nos dois módulos sem extern, ambos exportam a como D no nm,
+ e o ligador rejeita com "multiple definition of a". A compilação de cada módulo 
+ separadamente passou sem erro, o conflito só foi detectado ao tentar gerar o executável.
+
+ c)
+ Ao trocar por static int a = 1, o programa compilou, ligou e executou sem erros, 
+ imprimindo 1024. Isso acontece porque static torna a privado ao módulo, no nm ela
+  aparece como d minúsculo (símbolo local), invisível para o ligador. 
+  Assim não há conflito com o a de temp1.c. Dentro de foo(), o a modificado é o
+   local de temp2.c, não o de temp1.c por isso a em temp1.c continua valendo 1024
+    e é isso que o printf imprime.
+
+  output nm temp1 e temp2
+
+  0000000000000000 D a
+                 U foo
+0000000000000000 T main
+                 U printf
+@livramos ➜ /workspaces/software_basico_2/Lab_16 (main) $ nm temp2.o
+0000000000000000 d a
+0000000000000004 D b
+0000000000000000 T foo
+
+5-> 
+output do compilado temp1, temp2 e nm:
+0000000000000000 T foo
+@livramos ➜ /workspaces/software_basico_2/Lab_16 (main) $ gcc -Wa,--execstack -Wall -c temp1.c
+temp1.c: In function ‘main’:
+temp1.c:6:3: warning: implicit declaration of function ‘b’ [-Wimplicit-function-declaration]
+    6 |   b();
+      |   ^
+@livramos ➜ /workspaces/software_basico_2/Lab_16 (main) $ gcc -Wa,--execstack -Wall -c temp2.c
+@livramos ➜ /workspaces/software_basico_2/Lab_16 (main) $ gcc -o prog -Wa,--execstack temp1.o temp2.o
+/usr/bin/ld: warning: temp1.o: requires executable stack (because the .note.GNU-stack section is executable)
+@livramos ➜ /workspaces/software_basico_2/Lab_16 (main) $ nm temp2.o
+                 U a
+0000000000000000 D b
+0000000000000000 T foo
+@livramos ➜ /workspaces/software_basico_2/Lab_16 (main) $ nm temp1.o
+0000000000000000 D a
+                 U b
+0000000000000000 T main
+                 U printf
+@livramos ➜ /workspaces/software_basico_2/Lab_16 (main) $ ./prog
+Segmentation fault (core dumped)
+
+Ao remover #include "temp2.h" de temp1.c e trocar foo() por b(),
+ a compilação gerou apenas um warning de "implicit declaration of function 'b'" 
+  o compilador não conhecia o tipo de b e assumiu que era uma função.
+   A ligação ocorreu sem erros, pois o ligador apenas combina nomes de símbolos
+   sem verificar tipos: temp1.o referencia b como U (função implícita) e temp2.o exporta b 
+   como D (variável inteira = 10). Ao executar,
+    o programa tentou chamar b() interpretando os bytes do
+ inteiro b = 10 (0x0000000A) como código de máquina, o que resultou em
+ segmentation fault pois não corresponde a uma instrução válida.
+
+ B) output: 
+ @livramos ➜ /workspaces/software_basico_2/Lab_16 (main) $ gcc -Wa,--execstack -Wall -c temp1.c
+temp1.c: In function ‘main’:
+temp1.c:6:3: warning: implicit declaration of function ‘b’ [-Wimplicit-function-declaration]
+    6 |   b();
+      |   ^
+@livramos ➜ /workspaces/software_basico_2/Lab_16 (main) $ gcc -Wa,--execstack -Wall -c temp2.c
+@livramos ➜ /workspaces/software_basico_2/Lab_16 (main) $ gcc -o prog -Wa,--execstack temp1.o temp2.o
+/usr/bin/ld: warning: temp1.o: requires executable stack (because the .note.GNU-stack section is executable)
+@livramos ➜ /workspaces/software_basico_2/Lab_16 (main) $ ./ prog
+bash: ./: Is a directory
+@livramos ➜ /workspaces/software_basico_2/Lab_16 (main) $ ./prog
+Segmentation fault (core dumped)
+@livramos ➜ /workspaces/software_basico_2/Lab_16 (main) $ nm temp1.o
+0000000000000000 D a
+                 U b
+0000000000000000 T main
+                 U printf
+@livramos ➜ /workspaces/software_basico_2/Lab_16 (main) $ nm temp2.o
+                 U a
+0000000000000000 D b
+0000000000000000 T foo
+
+
+Ao trocar b para 0xC3 e recompilar, o programa ainda deu segmentation fault.
+ Acredito que isso ocorre porque no sistema utilizado o segmento de dados onde b 
+ está armazenado não tem permissão de execução, mesmo com as flags -Wa,--execstack e -z execstack. 
+ Portanto, ao tentar executar os bytes de b como código de máquina,
+ o sistema operacional bloqueou o acesso e o programa terminou com segfault.

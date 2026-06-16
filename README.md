@@ -16,3 +16,4 @@ Matéria INF1018 no semestre de 2026.01, focada em entender armazenamento de dad
 13 laboratório: Código de Máquina <br>
 14 laboratório: Representação de Números com Ponto Flutuante <br>
 15 laboratório: Instruções de Ponto Flutuante <br>
+16 laboratório: Compilação e Ligação <br>
