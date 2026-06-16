@@ -13,4 +13,6 @@ Matéria INF1018 no semestre de 2026.01, focada em entender armazenamento de dad
 10 laboratório: Mais Funções em Assembly  <br>
 11 laboratório: Variáveis Locais <br>
 12 laboratório: Invasão da Pilha de Execução <br>
-13 laboratório: Código de Máquina
+13 laboratório: Código de Máquina <br>
+14 laboratório: Representação de Números com Ponto Flutuante <br>
+15 laboratório: Instruções de Ponto Flutuante <br>

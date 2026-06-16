@@ -1,0 +1,50 @@
+1->
+Trabalhando com operandos double nas operações intermediárias, 
+consigo maior precisão nos cálculos, já que double tem mais bits de mantissa que float. 
+Só converto o resultado de volta para float no final com cvtsd2ss.
+E ao remover o protótipo de foo da main, o compilador gerou um warning e assumiu que o retorno seria int.
+ Como foo retorna o valor em %xmm0 mas a main passou a esperar o retorno em rax,
+ o printf leu um valor indefinido e imprimiu lixo  no meu caso 0.000000.
+
+ meu output:
+ @livramos ➜ /workspaces/software_basico_2/Lab_15 (main) $ gcc -Wall -o ex1 ex1_15.s ex1_15.c -lm
+ex1_15.s: Assembler messages:
+ex1_15.s: Warning: end of file not at end of a line; newline inserted
+ex1_15.c: In function ‘main’:
+ex1_15.c:10:19: warning: implicit declaration of function ‘foo’ [-Wimplicit-function-declaration]
+   10 |    printf("%lf\n",foo(a,b));
+      |                   ^~~
+ex1_15.c:10:14: warning: format ‘%lf’ expects argument of type ‘double’, but argument 2 has type ‘int’ [-Wformat=]
+   10 |    printf("%lf\n",foo(a,b));
+      |            ~~^    ~~~~~~~~
+      |              |    |
+      |              |    int
+      |              double
+      |            %d
+/usr/bin/ld: warning: /tmp/ccvtJOVG.o: missing .note.GNU-stack section implies executable stack
+/usr/bin/ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
+@livramos ➜ /workspaces/software_basico_2/Lab_15 (main) $ ./ex1
+0.000000
+
+2-> 
+A função foo1 recebe dois float: a em %xmm0 e b em %xmm1. Como sin espera um double e pode sobrescrever 
+todos os registradores %xmm, b é salvo na pilha antes da chamada com movss. Em seguida, a é convertido para 
+double com cvtss2sd e sin é chamada. O resultado, também em double, é convertido de volta para float com 
+cvtsd2ss,e então b é recuperado da pilha e somado com addss, retornando o resultado em %xmm0.
+
+3-> 
+ A função foo2 recebe dois float: a em %xmm0 e b em %xmm1, e retorna um double.
+  Como sin e cos podem sobrescrever todos os registradores %xmm, b é salvo na pilha com movss antes de 
+  qualquer chamada. Em seguida, a é convertido para double com cvtss2sd e sin é chamada, com o resultado 
+  salvo na pilha com movsd. Para chamar cos, b é recarregado da pilha com movss e convertido para 
+  double com cvtss2sd. Por fim,o resultado de cos(b) é somado ao sin(a) salvo na pilha com addsd,
+   retornando o resultado em %xmm0.
+
+4-> 
+A função foo3 recebe um ponteiro double *a em %rdi e um inteiro n em %esi.
+ Como call sin sobrescreve todos os registradores caller-saved, a e n são salvos na pilha imediatamente, 
+ e r = 0.0 é inicializado com movq $0, -8(%rbp). O registrador callee-saved %r12d é usado para o contador i,
+  salvo e restaurado no prólogo e epílogo. A cada iteração, a é recarregado do stack para %rdi, *a é lido com
+   movsd, sin é chamada, e o resultado é acumulado em r na pilha com addsd.
+    Após call sin, a é recarregado do stack, incrementado em 8 bytes (addq $8, %rdi) e salvo de volta, 
+    e n é recarregado para a comparação com i antes de cada iteração.
